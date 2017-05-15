@@ -1,6 +1,7 @@
 # dotfiles
+
 Will's dotfiles
 
-##Setup
+### Setup
 
-In Vim, run `:PluginInstall`
+In Vim, run `:PluginInstall` to install bundles
