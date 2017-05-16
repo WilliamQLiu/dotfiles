@@ -187,3 +187,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # change background color
 exec --no-startup-id xsetroot -solid "#000000"
+
+#exec --no-startup-id xfce4-panel --disable-wm-check
+
+# When switching focus to a window on a different output, mouse does not warp to center
+mouse_warping none
+
+# Disable tapping and scrolling for 1 second after each keypress (ignoring
+# modifier keys like Ctrl)
+exec --no-startup-id syndaemon -i .5 -d -K 
+
+exec --no-startup-id /usr/local/bin/screen-setup.sh
