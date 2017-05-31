@@ -168,8 +168,8 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
         tray_output primary
-        #status_command opt/bumblebee-status/bumblebee-status -m nic amixer cpu memory disk load traffic battery datetime -p root.path-/ time.format="%H:%M CW %V" date.format="%a, %b, %d %Y" -t solarized
 }
+
 
 # Pulse audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%  # increase sound volume
@@ -197,4 +197,9 @@ mouse_warping none
 # modifier keys like Ctrl)
 exec --no-startup-id syndaemon -i .5 -d -K 
 
+# Run screen script
 exec --no-startup-id /usr/local/bin/screen-setup.sh
+
+# Run network manager
+exec --no-startup-id nm-applet
+
