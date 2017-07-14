@@ -9,6 +9,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
+set $app Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -42,6 +43,9 @@ bindsym $mod+d kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
+
+# open file manager 'ranger'
+bindsym $app+f exec i3-sensible-terminal -e ranger
 
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
