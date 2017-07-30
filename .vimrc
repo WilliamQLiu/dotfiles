@@ -78,7 +78,7 @@ set backspace=indent,eol,start " use backspace like a normal program
 
 " GENERAL SETTINGS
 set encoding=utf-8    " add UTF-8 support
-set clipboard=unnamed " enable normal clipboard
+set clipboard^=unnamed,unnamedplus
 set autoread          " automatically reloads vim
 set history=10000     " Store a ton of history
 set ignorecase        " case insensitive
