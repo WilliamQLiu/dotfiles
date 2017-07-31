@@ -1,19 +1,61 @@
+# disable application keypad
+set enable-keypad off
+
 # Use Vi, not Emacs, style editing
 set editing-mode vi
 
-# Ignore case
+# Ignore case on tab completion
 set completion-ignore-case on
 
 # On menu-complete, first display the common prefix, then cycle through the
 # options when hitting tab
 menu-complete-display-prefix on
 
-# Remap ESC to use my double 'i' keypress to toggle insert or movement mode.
+# Remap ESC to use my double 'z' keypress to toggle insert or movement mode.
 $if mode=vi
+    # COMMAND MODE
     set keymap vi-command
     "zz": vi-insertion-mode
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+    "\C-h": delete-char
+  "\C-k": kill-line
+  "\C-l": clear-screen
+  "\C-p": history-search-backward
+  "\C-n": history-search-forward
+  "\C-r": reverse-search-history
+  "\C-s": forward-search-history
+  "\C-u": unix-line-discard
+  "\C-w": unix-word-rubout
+  "\C-y": yank
+  "\C-_": undo
+  "\eb":  backward-word # alt-b
+  #"\ed":  kill-word  # alt-d
+  "\ef":  forward-word # alt-f
+  "\e[A": history-search-backward # up-arrow
+  "\e[B": history-search-forward  # down-arrow
+  "\e[5~": history-search-backward # pg-up
+  "\e[6~": history-search-forward  # pg-down 
+
+    # INSERT MODE
     set keymap vi-insert
     "zz": vi-movement-mode
+   "\C-a": beginning-of-line
+  "\C-e": end-of-line
+  "\C-k": kill-line
+  "\C-l": clear-screen
+  "\C-p": history-search-backward
+  "\C-n": history-search-forward
+  "\C-r": reverse-search-history
+  "\C-s": forward-search-history
+  "\C-u": unix-line-discard
+  "\C-w": unix-word-rubout
+  "\C-y": yank
+  "\C-_": undo
+  "\eb":  backward-word # alt-b
+  "\ed":  kill-word  # alt-d
+  "\ef":  forward-word # alt-f
+ 
 $endif
 
 # Keymaps for when we're in command mode (e.g. after hitting ESC)
