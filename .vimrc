@@ -200,3 +200,13 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:buffergator_viewport_split_policy = 'R'
 "let g:buffergator_suppress_keymaps = 1
 
+" Buffer prev/next
+nnoremap <C-x> :bnext<CR>
+nnoremap <C-z> :bprev<CR>
+
+" Better split switching
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
