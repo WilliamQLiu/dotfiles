@@ -43,7 +43,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
 " Add CtrlP Plugin to search files, buffers
-Plugin 'vbundles/ctrlp' 
+Plugin 'ctrlpvim/ctrlp.vim' 
 
 " Display list of buffers
 Plugin 'jeetsukumaran/vim-buffergator'
@@ -210,3 +210,5 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Set path to help 'find' find files
+set path=$PWD/**
