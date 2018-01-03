@@ -20,7 +20,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 
 " Jedi autocompletion library for Python
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 
 " Check syntax
 Plugin 'scrooloose/syntastic'
@@ -35,7 +35,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'vim-airline/vim-airline'
 
 " Git support
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 
 " Plugin 'vim-airline/vim-airline-themes'
 
@@ -49,16 +49,19 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 
 " Easily add, change, delete surrounding parenthesis
-Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-surround'
 
 " Shortcuts for Ctags
-Plugin 'szw/vim-tags'
+"Plugin 'szw/vim-tags'
 
 " Nice JSON formatting
 Plugin 'elzr/vim-json'
 
 " pep-8 indenting
 Plugin 'Vimjas/vim-python-pep8-indent'
+
+" virtualenv
+"Plugin 'jmcantrell/vim-virtualenv'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,15 +72,43 @@ filetype plugin indent on    " required
 " colorscheme atom-dark-256
 set guifont=Monaco:h10
 set number  " display line numbers by default
-syntax enable " enable syntax processing
 set noswapfile " Don't use swapfile
 set nobackup " Don't create annoying backup files
+set nowritebackup
 " set cursorline "highlight current line
 set wildmenu " visual autocomplete for command menu, e.g. `:e ~/.vim<tab>`
-set showmatch " highlight matching [{()}]
-set colorcolumn=120 " Add a colored column here
+set noshowmatch " do not highlight matching [{()}]
+"set colorcolumn=120 " Add a colored column here
 set background=dark
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+"colorscheme solarized
+set guioptions-=L
+set guioptions+=a
 set cmdheight=2 " command line height for messages
+
+" Wildignore
+set wildmode=list:full
+
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX
+set wildignore+=*.luac                           " Lua byte code
+set wildignore+=migrations                       " Django migrations
+set wildignore+=go/pkg                           " Go static files
+set wildignore+=go/bin                           " Go bin files
+set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
+set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.orig                           " Merge resolution files
+
+syntax enable " enable syntax processing
+syntax sync minlines=256
+set synmaxcol=300
+set re=1  " force old regex engine
 
 " NAVIGATION
 " Allow alternate navigation navigations
@@ -115,23 +146,29 @@ set backspace=indent,eol,start " use backspace like a normal program
 
 " GENERAL SETTINGS
 set encoding=utf-8    " add UTF-8 support
-set clipboard^=unnamed,unnamedplus
+set clipboard=unnamed,unnamedplus
 set autoread          " automatically reloads vim
 set history=10000     " Store a ton of history
 set ignorecase        " case insensitive
 set smartcase         " use case if any caps used
 "set nowrap            " do not wrap lines
-set wrap
+set wrap              " wrap lines
 set textwidth=79
 set formatoptions=qrn1
 set mouse=a           " allow mouse movements
 set ruler             " show a ruler
 set showcmd           " show commands as you type out
+set showmode          " show current mode.
+set autoindent        " autoindent
+set autowrite         " automatically save before :next, :make, etc
+set ttyfast           " scroll fast
+set lazyredraw        " wait to redraw
 "set path+=**          " Allows search down into subfolders for tab-completion
+set complete-=i
 
 " SEARCH
 set incsearch " show search match as you're typing in characters
-set hlsearch " search highlighting
+set hlsearch  " search highlighting
 
 " FOLDING CODE
 set foldenable         " enable folding
@@ -153,6 +190,8 @@ if !exists("g:NERDTreeIgnore")
     let g:NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
 endif
 
+let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
+
 " Enable syntax highlight for JSDocs
 "let g:javascript_plugin_jsdoc = 1
 
@@ -164,6 +203,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
 
 " Airline Bar
 let g:airline#extensions#tabline#enabled = 1
@@ -180,6 +220,17 @@ let g:jedi#popup_on_dot=0
 " Remaps insert mode typing 'jk' to be same as exit
 ":ignoremap jk <esc>
 let g:bufferline_echo=0
+
+" Time out on key codes but not mappings
+" Makes terminal Vim work okay
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" In many terminal emulators the mouse works fine, enable it
+if has('mouse')
+    set mouse=a
+endif
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
@@ -212,3 +263,40 @@ map <C-l> <C-W>l
 
 " Set path to help 'find' find files
 set path=$PWD/**
+
+set splitright " Split vertical windows right to the current windows
+set splitbelow " Split horizontal windows below to the current windows
+
+set fileformats=unix,dos,mac  " Prefer Unix over Windows and Mac
+
+" Time out on key codes but not mappings
+" Makes terminal Vim work sanely
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+
+" Function to activate a virtualenv in the embedded interpreter for
+" omnicomplete and other things like that.
+function LoadVirtualEnv(path)
+    let activate_this = a:path . '/bin/activate_this.py'
+    if getftype(a:path) == "dir" && filereadable(activate_this)
+        python << EOF
+import vim
+activate_this = vim.eval('l:activate_this')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+    endif
+endfunction
+
+" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
+let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+
+" Only attempt to load this virtualenv if the defaultvirtualenv
+" actually exists, and we aren't running with a virtualenv active.
+if has("python")
+    if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
+        call LoadVirtualEnv(defaultvirtualenv)
+    endif
+endif
+
