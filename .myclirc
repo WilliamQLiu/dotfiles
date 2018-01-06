@@ -59,7 +59,8 @@ wider_completion_menu = False
 # \h - Hostname of the server
 # \d - Database name
 # \n - Newline
-prompt = '\t \u@\h:\d> '
+#prompt = '\t \u@\h:\d> '
+prompt ="(\u@\h) [\d]> "
 
 # Custom colors for the completion menu, toolbar, etc.
 [colors]
@@ -90,3 +91,6 @@ Token.Toolbar.Arg.Text = 'nobold'
 
 # Favorite queries.
 [favorite_queries]
+
+# Do not use a pager
+skip-pager=on
