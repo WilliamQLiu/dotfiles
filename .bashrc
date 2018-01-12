@@ -51,19 +51,37 @@ force_color_prompt=yes
 LS_COLORS=$LS_COLORS:'di=0;92:' ;
 export LS_COLORS
 
-alias ls="ls --color=auto"
 
 # Virtualenv wrapper
 VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
 source /usr/local/bin/virtualenvwrapper.sh
 
-# Alias
-alias v="nvim"
-alias vim="nvim"
-alias open="gnome-open"
-alias python="python3"
+# -------------------------------------------------------------------
+# 2. Terminal Commands
+# -------------------------------------------------------------------
+
+# Change to my default programs
 alias ipython="ipython3"
+alias open="gnome-open"
 alias pip="pip3"
+alias python="python3"
+alias vim="nvim"
+
+# Make terminal commands better
+alias c='clear'                             # clear terminal display
+alias cp='cp -iv'                           # cp with interactive and verbose flags
+alias mkdir='mkdir -pv'                     # make directories as needed
+alias ls="ls --color=auto"
+alias ..='cd ../'                           # Go back 1 directory level
+alias ...='cd ../../'                       # Go back 2 directory levels
+alias .3='cd ../../../'                     # Go back 3 directory levels
+alias .4='cd ../../../../'                  # Go back 4 directory levels
+alias .5='cd ../../../../../'               # Go back 5 directory levels
+alias .6='cd ../../../../../../'            # Go back 6 directory levels
+alias get_pid='ps aux | grep -i'
+alias ~='cd ~'  # go home
+alias reload='source ~/.bashrc'
+
 
 # extract:  Extract most known archives with one command
 extract () {
@@ -85,6 +103,28 @@ extract () {
      else
          echo "'$1' is not a valid file"
      fi
+}
+
+cd() { builtin cd "$@"; ls; }               # Always list directory contents upon 'cd'
+
+#will return all results minus grep, useful for ps
+grepv () {
+ grep -i $1 | grep -v 'grep'	
+}
+
+#runs ps aux with grep -i var | grep -v 'grep'
+fpid () {
+ ps aux | grepv $1	
+}
+
+#runs fpid, prints the second column of ps aux (the process pid) and kills all processes in the list with -9
+killprocs () {
+ fpid $1 | awk '{print $2}' | xargs kill -9	
+}
+
+#sends a sig HUP to all processes found
+killhup () {
+ fpid $1 | awk '{print $2}' | xargs kill -HUP	
 }
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -140,12 +180,4 @@ printf "\e[?2004l"
 alias get_net_connections='lsof -i'  # show all open tcp/ip sockets
 alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connections
 
-# Terminal Defaults
-alias cp='cp -iv'  # Preferred 'cp'
-alias mkdir='mkdir -pv'  # Make directories as needed
 
-cd() { builtin cd "$@"; ls; }               # Always list directory contents upon 'cd'
-
-alias get_pid='ps aux | grep -i'
-alias ~='cd ~'  # go home
-alias reload='source ~/.bashrc'
