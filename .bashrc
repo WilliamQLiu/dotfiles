@@ -22,10 +22,12 @@
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 # Git
-source ~/.git-prompt.sh  # see repository status in shell (e.g. on master branch)
+#source ~/.git-prompt.sh  # see repository status in shell (e.g. on master branch)
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
+
+alias git_branch_sort_latest='git branch --sort=committerdate'  # sorts ASC, use -committerdate for DESC
 
 # Add to Paths
 export PATH="$PATH:/usr/bin/"
@@ -44,6 +46,10 @@ export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# History - for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
+
 # Colors
 #export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1
@@ -59,6 +65,15 @@ source /usr/local/bin/virtualenvwrapper.sh
 # -------------------------------------------------------------------
 # 2. Terminal Commands
 # -------------------------------------------------------------------
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # Change to my default programs
 alias ipython="ipython3"
@@ -130,11 +145,30 @@ killhup () {
 alias make1mb='mkfile 1m ./1MB.dat'         # make1mb:      Creates a file of 1mb size (all zeros)
 alias make5mb='mkfile 5m ./5MB.dat'         # make5mb:      Creates a file of 5mb size (all zeros)
 alias make10mb='mkfile 10m ./10MB.dat'      # make10mb:     Creates a file of 10mb size (all zeros)
-
 alias qfind="find . -name "                 # qfind:    Quickly search for file
+
 ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
 ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
 ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+
+# SCP Example to copy from server to local
+#scp serveruser@exampleserver.com:/home/will/logs/* .
+
+alias count_files="ls -l | wc -l"
+
+# git rebase with n being the number of commits you need to access; change 'pick' to 'squash'
+#git rebase -i HEAD~n
+
+# Start Rabbitmq-Server
+alias rabbitmq_start="service rabbitmq-server start"
+alias rabbitmq_stop="service rabbitmq-server stop"
+alias rabbitmq_status="rabbitmqctl status"
+
+alias show_screen='screen -ls'
+# Ctrl + a + c to create a new window
+# Ctrl + a + d to detach from a window
+# Ctrl + a + :sessionname to rename the session
+alias reattach_screen='screen -r '  # then add id
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then source '/opt/google-cloud-sdk/path.bash.inc'; fi
@@ -151,6 +185,7 @@ export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 
 alias gitlog='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %CBlue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --no-merges'
 alias check_data='csvtool readable data.csv | view -'
+alias gitlogf='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %Cblue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --numstat --no-merges'
 
 
 # When displaying prompt to overwrite history, append instead
@@ -189,4 +224,6 @@ printf "\e[?2004l"
 alias get_net_connections='lsof -i'  # show all open tcp/ip sockets
 alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connections
 
+# MySQL - replace user and password
+#mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
 
