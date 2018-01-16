@@ -52,7 +52,7 @@ Plugin 'jeetsukumaran/vim-buffergator'
 "Plugin 'tpope/vim-surround'
 
 " Shortcuts for Ctags
-"Plugin 'szw/vim-tags'
+Plugin 'szw/vim-tags'
 
 " Nice JSON formatting
 Plugin 'elzr/vim-json'
@@ -300,3 +300,10 @@ if has("python")
     endif
 endif
 
+" Fix paste through ssh
+set t_BE=
+
+" Fix paste so doesn't auto indent
+set paste
+
+set ff=unix  " unix line endings
