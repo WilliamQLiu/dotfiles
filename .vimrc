@@ -86,6 +86,7 @@ let g:solarized_termtrans=1
 set guioptions-=L
 set guioptions+=a
 set cmdheight=2 " command line height for messages
+set ff=unix  " unix line endings
 
 " Wildignore
 set wildmode=list:full
@@ -305,5 +306,4 @@ set t_BE=
 
 " Fix paste so doesn't auto indent
 set paste
-
-set ff=unix  " unix line endings
+set pastetoggle=<F10>
