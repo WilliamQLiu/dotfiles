@@ -1,0 +1,52 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "vim.disableAnnoyingNeovimMessage": true,
+    "workbench.colorTheme": "One Dark Pro Vivid",
+    "vim.enableNeovim": false,
+    //"python.pythonPath": "python",
+    "python.venvPath": "~./virtualenvs",
+    "python.linting.pylintArgs": ["--load-plugs", "--disable=E501"],
+    "python.linting.enabled": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore=E501"
+    ],
+    "python.linting.pep8Args": [
+        "--ignore=E501"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.pyTestEnabled": true,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.pyTestArgs": [
+        "--exitfirst",
+        "--verbose"
+    ],
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/*__pycache__": true,
+        "dist/*": true,
+        "build/*": true
+    },
+    "search.exclude": {
+        "build/*": true,
+        "dist/*": true
+    },
+    "python.jupyter.defaultKernel": "127.0.0.1",
+    "python.jupyter.startupCode": [
+        "%matplotlib inline"
+    ],
+    "python.jupyter.appendResults": true,
+    "vim.useCtrlKeys": true,
+    "vim.overrideCopy": false,
+    "vim.useSystemClipboard": true,
+    "jupyter.appendResults": false,
+    "extensions.ignoreRecommendations": false,
+    "workbench.iconTheme": null,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [80,120],
+    "files.trimTrailingWhitespace": true,
+    "editor.wordWrap": "on",
+    "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
+    "window.zoomLevel": -1
+}
