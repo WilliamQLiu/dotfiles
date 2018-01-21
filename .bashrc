@@ -156,6 +156,13 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name end
 
 alias count_files="ls -l | wc -l"
 
+alias memory_used='free | grep Mem | awk '\''{print $3/$2 * 100.0}'\'
+alias memory_free='free | grep Mem | awk '\''{print $4/$2 * 100.0}'\'
+alias refresh="source ~/.bashrc"
+
+# Fix resize terminal funkiness 
+export PROMPT_COMMAND="resize &>/dev/null ; $PROMPT_COMMAND"
+
 # git rebase with n being the number of commits you need to access; change 'pick' to 'squash'
 #git rebase -i HEAD~n
 
@@ -226,4 +233,5 @@ alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connection
 
 # MySQL - replace user and password
 #mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
+
 
