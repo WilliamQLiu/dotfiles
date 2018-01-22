@@ -12,7 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 "Plugin 'tmhedberg/SimpylFold' " helps with code folding
 "Plugin 'vim-scripts/indentpython.vim' " helps with auto indents
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "Plugin 'jnurmine/Zenburn'  " Color Scheme for terminal mode
 "Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
 
@@ -33,32 +33,31 @@ Plugin 'nvie/vim-flake8'
 
 " Lightweight status/tabline
 Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 
 " Git support
 "Plugin 'tpope/vim-fugitive'
 
-" Plugin 'vim-airline/vim-airline-themes'
-
 " Add gitgutter
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'airblade/vim-gitgutter'
 
 " Add CtrlP Plugin to search files, buffers
 Plugin 'ctrlpvim/ctrlp.vim' 
 
 " Display list of buffers
-Plugin 'jeetsukumaran/vim-buffergator'
+"Plugin 'jeetsukumaran/vim-buffergator'
 
 " Easily add, change, delete surrounding parenthesis
 "Plugin 'tpope/vim-surround'
 
 " Shortcuts for Ctags
-Plugin 'szw/vim-tags'
+"Plugin 'szw/vim-tags'
 
 " Nice JSON formatting
-Plugin 'elzr/vim-json'
+"Plugin 'elzr/vim-json'
 
 " pep-8 indenting
-Plugin 'Vimjas/vim-python-pep8-indent'
+"Plugin 'Vimjas/vim-python-pep8-indent'
 
 " virtualenv
 "Plugin 'jmcantrell/vim-virtualenv'
@@ -86,7 +85,6 @@ let g:solarized_termtrans=1
 set guioptions-=L
 set guioptions+=a
 set cmdheight=2 " command line height for messages
-set ff=unix  " unix line endings
 
 " Wildignore
 set wildmode=list:full
@@ -166,6 +164,7 @@ set ttyfast           " scroll fast
 set lazyredraw        " wait to redraw
 "set path+=**          " Allows search down into subfolders for tab-completion
 set complete-=i
+syntax on  " enable syntax highlighting
 
 " SEARCH
 set incsearch " show search match as you're typing in characters
@@ -197,8 +196,9 @@ let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
 "let g:javascript_plugin_jsdoc = 1
 
 " SYNTASTIC
+set laststatus=2  " always show window info
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -307,3 +307,5 @@ set t_BE=
 " Fix paste so doesn't auto indent
 set paste
 set pastetoggle=<F10>
+
+set tags=tags
