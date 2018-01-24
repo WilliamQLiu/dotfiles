@@ -15,3 +15,19 @@ Add in `printf "\e[?2004l"` to your .bashrc for bracketed paste mode
 Better git diff used for showing diff in columns
 
 https://github.com/so-fancy/diff-so-fancy
+
+### .myclirc
+
+A better command line tool for mysql w/ autocomplete
+
+### silversearcher
+
+Code searching tool similar to `ack`, but focuses on speed.
+
+    apt-get install silversearcher-ag
+
+### Vim YouCompleteMe
+
+cd ~/.vim/bundle/YouCompleteMe
+./install.py
+
