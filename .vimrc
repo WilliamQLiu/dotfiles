@@ -14,7 +14,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/indentpython.vim' " helps with auto indents
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'jnurmine/Zenburn'  " Color Scheme for terminal mode
-"Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
+Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
 
 " Tree File Explorer
 Plugin 'scrooloose/nerdtree'
@@ -39,7 +39,7 @@ Plugin 'vim-airline/vim-airline'
 "Plugin 'tpope/vim-fugitive'
 
 " Add gitgutter
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 
 " Add CtrlP Plugin to search files, buffers
 Plugin 'ctrlpvim/ctrlp.vim' 
@@ -103,6 +103,14 @@ set wildignore+=go/bin                           " Go bin files
 set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
+set wildignore+=.tmp
+set wildignore+=.coverage,.coverage/**
+set wildignore+=.git,.gitkeep
+set wildignore+=__pycache__/
+set wildignore+=*.egg,*.egg-info
+set wildignore+=*DS_Store*
+set wildignore+=*.png,*.jpg,*.gif
+
 
 syntax enable " enable syntax processing
 syntax sync minlines=256
@@ -238,9 +246,9 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set guicursor=
 
 " Remeber last known cursor position
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
+"if has("autocmd")
+"  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+"endif
 
 " Plugin CtrlP options
 let g:ctrlp_map = '<c-p>'
@@ -249,7 +257,7 @@ let g:ctrlp_working_path_mode = 'ra'
 
 " BufferGator Settings
 " use the right side of the screen
-let g:buffergator_viewport_split_policy = 'R'
+"let g:buffergator_viewport_split_policy = 'R'
 "let g:buffergator_suppress_keymaps = 1
 
 " Buffer prev/next
@@ -309,3 +317,9 @@ set paste
 set pastetoggle=<F10>
 
 set tags=tags
+
+" Code search very fast w/ the silver searcher (`ag`)
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
