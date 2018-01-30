@@ -316,10 +316,13 @@ set t_BE=
 set paste
 set pastetoggle=<F10>
 
-set tags=tags
+set tags=tags;/
+
+set ff=unix
 
 " Code search very fast w/ the silver searcher (`ag`)
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+

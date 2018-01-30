@@ -24,10 +24,11 @@ A better command line tool for mysql w/ autocomplete
 
 Code searching tool similar to `ack`, but focuses on speed.
 
-    apt-get install silversearcher-ag
+	sudo add-apt-repository ppa:pgolm/the-silver-searcher
+    sudo apt-get install silversearcher-ag
 
 ### Vim YouCompleteMe
 
 cd ~/.vim/bundle/YouCompleteMe
-./install.py
+python install.py
 

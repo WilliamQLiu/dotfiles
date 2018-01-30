@@ -234,4 +234,5 @@ alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connection
 # MySQL - replace user and password
 #mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
 
+alias make_ctags="ctags -R -f ./.git/tags ."
 
