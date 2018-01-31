@@ -236,3 +236,127 @@ alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connection
 
 alias make_ctags="ctags -R -f ./.git/tags ."
 
+# Example of showing entire history for a specific file
+git_log_follow()
+{
+    git log --follow -p -- $1
+}
+
+## Docker 
+
+# inspect details on a container name (e.g. if running, what port, what IP Address)
+docker_inspect_container_ip() {
+    docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
+}
+
+# inspect a docker image
+docker_inspect_container() {
+    docker inspect $1
+}
+
+# ssh into a docker container
+docker_ssh_container() {
+    docker exec -t -i $1 /bin/bash
+}
+
+# list all your images that you pulled
+docker_list_images() {
+    docker images
+}
+
+# remove dangling docker images
+docker_remove_dangling_images() {
+    docker rmi -f $(docker images -qf dangling=true)
+}
+
+# remove dangling docker volumes
+docker_remove_dangling_volumes() {
+    docker volume rm $(docker volume ls -qf dangling=true)
+}
+
+# remove exited containers
+docker_remove_exited_containers() {
+    docker rm -v $(docker ps -a -q -f status=exited)
+}
+
+# list all docker containers that are running (including container id)
+docker_list_containers() {
+    docker ps -a
+}
+
+# pull the docker logs for a container
+docker_logs() {
+    docker logs $1
+}
+
+# removes a docker container
+docker_remove_container() {
+    docker rm $1
+}
+
+# show public facing ports for a docker container
+docker_list_container_ports() {
+    docker port $1
+}
+
+# stop a docker container
+docker_stop_container() {
+    docker stop $1
+}
+
+## Docker Compose
+
+# bring up containers
+docker_compose_up() {
+	docker-compose up
+}
+
+# bring up containers and rebuild when bringing up
+docker_compose_up_and_rebuild() {
+	docker-compose up --build
+}
+
+# build w/ docker compose
+docker_compose_build() {
+	docker-compose build
+}
+
+# bring down containers
+docker_compose_down() {
+	docker-compose down
+}
+
+# list docker-compose containers/apps
+docker_compose_list_containers() {
+	docker-compose ps
+}
+
+# run a one time script from one container to another
+# e.g. docker exec -it my_web_app_1 ping -c 2 my_db_1
+docker_exec_between_containers() {
+	echo "To Do"
+}
+
+# docker run one time script on a container
+#e.g. docker-compose run my_web_app_1 python /web/hipflask/create_db.py
+docker_run_script() {
+	echo "To Do"
+}
+
+## Docker Hub
+
+# login to dockerhub
+dockerhub_login() {
+    docker login
+}
+
+# pull a docker image from dockerhub, e.g williamqliu/go-app
+dockerhub_run_image() {
+    docker pull $1
+}
+
+# run a docker image from dockerhub, e.g williamqliu/go-app
+dockerhub_run_image() {
+    docker run $1
+}
+
