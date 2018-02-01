@@ -14,7 +14,7 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/indentpython.vim' " helps with auto indents
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'jnurmine/Zenburn'  " Color Scheme for terminal mode
-Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
+"Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
 
 " Tree File Explorer
 Plugin 'scrooloose/nerdtree'
@@ -32,7 +32,7 @@ Plugin 'nvie/vim-flake8'
 " Plugin 'jistr/vim-nerdtree-tabs'
 
 " Lightweight status/tabline
-Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
 
 " Git support
@@ -79,8 +79,8 @@ set wildmenu " visual autocomplete for command menu, e.g. `:e ~/.vim<tab>`
 set noshowmatch " do not highlight matching [{()}]
 "set colorcolumn=120 " Add a colored column here
 set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans=1
 "colorscheme solarized
 set guioptions-=L
 set guioptions+=a
@@ -204,19 +204,26 @@ let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
 "let g:javascript_plugin_jsdoc = 1
 
 " SYNTASTIC
-set laststatus=2  " always show window info
-set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
+set laststatus=2  " always show window info / is visible
+set statusline=
+"set statusline+=%F  " file name
+set statusline+=%t%m  " show current file and modified flag [+]
+set statusline+=%#warningmsg#  " show warning messages
+set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+"set statusline+=%l:%c(%p%%)  " show current line, column and percentage through file
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+"let g:syntastic_python_checkers = ['flake8']
+"let g:syntastic_python_flake8_exec = 'python'
+"let g:syntastic_python_flake8_args = ['-m', 'flake8']
 
 
 " Airline Bar
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#fnamemod = ':t'
 
 " PYTHON
 let python_highlight_all=1
@@ -254,6 +261,7 @@ set guicursor=
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '__pycache__\|build|dist|*.egg-info|*.pyc'
 
 " BufferGator Settings
 " use the right side of the screen
@@ -327,3 +335,7 @@ if executable('ag')
 endif
 
 set autoindent
+
+set title  " show title of file on terminal
+
+
