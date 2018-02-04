@@ -360,3 +360,6 @@ dockerhub_run_image() {
     docker run $1
 }
 
+alias netstat_see_network_connections="netstat -tulpn"
+alias check_port="sudo lsof -i :$1"  # e.g. sudo lsof -i :3306
+alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files lying around
