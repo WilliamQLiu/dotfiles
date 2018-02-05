@@ -11,6 +11,7 @@
 # 6. Networking
 # 7. System Operations and Information
 # 8. Web Dev
+# 9. Secrets (stored in .secrets)
 # -------------------------------------------------------------------
 
 
@@ -42,8 +43,8 @@ export GOBIN="$PATH:$HOME/go/bin"
 export MYSQL_PS1="(\u@\h) [\d]> "
 
 # Editor Config
-export GIT_EDITOR=vim
-export VISUAL=vim
+export GIT_EDITOR=nvim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 # History - for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
@@ -363,3 +364,14 @@ dockerhub_run_image() {
 alias netstat_see_network_connections="netstat -tulpn"
 alias check_port="sudo lsof -i :$1"  # e.g. sudo lsof -i :3306
 alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files lying around
+
+if [ -e .secrets ]
+then
+	source .secrets
+else
+	:
+fi
+
+# Needed for neovim
+export VTE_VERSION="100"
+
