@@ -32,8 +32,8 @@ Plugin 'nvie/vim-flake8'
 " Plugin 'jistr/vim-nerdtree-tabs'
 
 " Lightweight status/tabline
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Git support
 "Plugin 'tpope/vim-fugitive'
@@ -61,6 +61,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 " virtualenv
 "Plugin 'jmcantrell/vim-virtualenv'
+
+" Needed for Ag Search
+Plugin 'mileszs/ack.vim'
+
+" Make splitting and moving on Neovim's Terminal easier (:term and :10Term for terminal w/ 10 height)
+Plugin 'mklabs/split-term.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -104,18 +110,20 @@ set wildignore+=go/bin-vagrant                   " Go bin-vagrant files
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 set wildignore+=.tmp
-set wildignore+=.coverage,.coverage/**
-set wildignore+=.git,.gitkeep
-set wildignore+=__pycache__/
+set wildignore+=*/.coverage,.coverage/**
+set wildignore+=*/.git,.gitkeep
+"set wildignore+=*__pycache__
 set wildignore+=*.egg,*.egg-info
 set wildignore+=*DS_Store*
 set wildignore+=*.png,*.jpg,*.gif
+"set wildignore+=__pycache__
+"set wildignore+=*\\vendor\\**
 
 
 syntax enable " enable syntax processing
 syntax sync minlines=256
 set synmaxcol=300
-set re=1  " force old regex engine
+"set re=1  " force old regex engine
 
 " NAVIGATION
 " Allow alternate navigation navigations
@@ -214,7 +222,7 @@ set statusline+=%*
 "set statusline+=%l:%c(%p%%)  " show current line, column and percentage through file
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_python_checkers = ['flake8']
 "let g:syntastic_python_flake8_exec = 'python'
@@ -222,8 +230,17 @@ let g:syntastic_check_on_wq = 0
 
 
 " Airline Bar
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = '|'
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ' '
+let g:airline_right_alt_sep = '|'
+"let g:airline_theme= 'gruvbox'
 
 " PYTHON
 let python_highlight_all=1
@@ -260,8 +277,12 @@ set guicursor=
 " Plugin CtrlP options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '__pycache__\|build|dist|*.egg-info|*.pyc'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_files=0
+"let g:ctrlp_max_depth=40
+
+" Note: check .agignore if you're using `ag`, the silver searcher
+let g:ctrlp_custom_ignore = '__pycache__\|build\|dist\|*.egg-info\|*.pyc\|__pycache__*'
 
 " BufferGator Settings
 " use the right side of the screen
@@ -338,4 +359,7 @@ set autoindent
 
 set title  " show title of file on terminal
 
-
+" Use ag instead
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
