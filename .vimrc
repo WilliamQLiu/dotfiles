@@ -80,7 +80,7 @@ set number  " display line numbers by default
 set noswapfile " Don't use swapfile
 set nobackup " Don't create annoying backup files
 set nowritebackup
-" set cursorline "highlight current line
+set cursorline "highlight current line
 set wildmenu " visual autocomplete for command menu, e.g. `:e ~/.vim<tab>`
 set noshowmatch " do not highlight matching [{()}]
 "set colorcolumn=120 " Add a colored column here
@@ -120,17 +120,13 @@ set wildignore+=*.png,*.jpg,*.gif
 "set wildignore+=*\\vendor\\**
 
 
-syntax enable " enable syntax processing
-syntax sync minlines=256
+syntax on " enable syntax processing
+syntax sync minlines=200
 set synmaxcol=300
 "set re=1  " force old regex engine
 
 " NAVIGATION
 " Allow alternate navigation navigations
-nnoremap <C-J> <C-W><C-J>
-noremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 " set scrolljump=5 " lines to jump when cursor leaves screen
 " set scrolloff=4 " minimum number of lines to keep above and below cursor
 
@@ -146,7 +142,8 @@ nnoremap tj :tabprev<CR>
 nnoremap th :tabfirst<CR>
 nnoremap tl :tablast<CR>
 
-" Control + Direction to change PANES instead of Control + w
+" WINDOWS
+" Control + Direction to change PANES instead of Control + W + Direction
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -163,14 +160,13 @@ set backspace=indent,eol,start " use backspace like a normal program
 set encoding=utf-8    " add UTF-8 support
 set clipboard=unnamed,unnamedplus
 set autoread          " automatically reloads vim
-set history=10000     " Store a ton of history
+set history=1000      " Store a lot of history
 set ignorecase        " case insensitive
 set smartcase         " use case if any caps used
 "set nowrap            " do not wrap lines
 set wrap              " wrap lines
 set textwidth=79
 set formatoptions=qrn1
-set mouse=a           " allow mouse movements
 set ruler             " show a ruler
 set showcmd           " show commands as you type out
 set showmode          " show current mode.
@@ -305,14 +301,13 @@ set path=$PWD/**
 set splitright " Split vertical windows right to the current windows
 set splitbelow " Split horizontal windows below to the current windows
 
-set fileformats=unix,dos,mac  " Prefer Unix over Windows and Mac
+set fileformats=unix,mac,dos  " Prefer Unix over Windows and Mac
 
 " Time out on key codes but not mappings
 " Makes terminal Vim work sanely
 set notimeout
 set ttimeout
 set ttimeoutlen=10
-
 
 " Function to activate a virtualenv in the embedded interpreter for
 " omnicomplete and other things like that.
@@ -354,8 +349,6 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
-set autoindent
 
 set title  " show title of file on terminal
 
