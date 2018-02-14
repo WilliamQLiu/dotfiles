@@ -22,8 +22,11 @@ Plugin 'scrooloose/nerdtree'
 " Jedi autocompletion library for Python
 "Plugin 'davidhalter/jedi-vim'
 
-" Check syntax
-Plugin 'scrooloose/syntastic'
+" Check syntax, but runs a little slow
+"Plugin 'scrooloose/syntastic'
+
+" Faster than Syntastic, async
+Plugin 'neomake/neomake'
 
 " PEP8 autochecking
 Plugin 'nvie/vim-flake8'
@@ -356,3 +359,9 @@ set title  " show title of file on terminal
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" Neomake - When writing a buffer.
+call neomake#configure#automake('w')
+
+" Neomake - Open the list automatically
+"let g:neomake_open_list=2

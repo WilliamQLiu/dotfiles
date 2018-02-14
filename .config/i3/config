@@ -224,3 +224,4 @@ bindsym $mod+minus scratchpad show
 # open visual studio code
 bindsym $app+c exec code
 
+exec xset r rate 250 60
