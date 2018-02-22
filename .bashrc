@@ -250,6 +250,15 @@ docker_inspect_container_ip() {
     docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
+# build a docker image and tag with name
+docker_build_target() {
+	docker build -t $1
+}
+
+docker_run_image() {
+	docker run $1
+}
+
 # inspect a docker image
 docker_inspect_container() {
     docker inspect $1
@@ -304,6 +313,12 @@ docker_list_container_ports() {
 docker_stop_container() {
     docker stop $1
 }
+
+# Check port number to see if used
+docker_check_port() {
+	sudo lsof -i :$1 | grep LISTEN
+}
+
 
 ## Docker Compose
 
@@ -362,7 +377,6 @@ dockerhub_run_image() {
 }
 
 alias netstat_see_network_connections="netstat -tulpn"
-alias check_port="sudo lsof -i :$1"  # e.g. sudo lsof -i :3306
 alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files lying around
 
 if [ -e .secrets ]
@@ -374,4 +388,24 @@ fi
 
 # Needed for neovim
 export VTE_VERSION="100"
+
+# LaTeX editor
+alias te="texmaker"
+
+# Make key repeat much faster
+xset r rate 200 60
+
+# Setup configs for Hadoop and Spark
+export CLASSPATH='$CLASSPATH:/usr/share/java/mysql-connector-java.jar'
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export HADOOP_HOME=/usr/local/hadoop-3.0.0/
+export PATH=$PATH:$HADOOP_HOME/bin
+export PATH=$PATH:$HADOOP_HOME/sbin
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+#export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
 
