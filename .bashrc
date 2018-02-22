@@ -252,7 +252,7 @@ docker_inspect_container_ip() {
 
 # build a docker image and tag with name
 docker_build_target() {
-	docker build -t $1
+	docker build -t $1 .
 }
 
 docker_run_image() {
