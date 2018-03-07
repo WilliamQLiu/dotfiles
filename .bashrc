@@ -409,3 +409,5 @@ export YARN_HOME=$HADOOP_HOME
 export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop/
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
 
+alias run_xset="xset r rate 200 60"
+export MYVIMRC="~/.vimrc"
