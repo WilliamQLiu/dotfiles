@@ -250,6 +250,11 @@ docker_inspect_container_ip() {
     docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
+docker_events() {
+	docker events&
+}
+
+
 # build a docker image and tag with name
 docker_build_target() {
 	docker build -t $1 .
@@ -411,3 +416,5 @@ export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
 
 alias run_xset="xset r rate 200 60"
 export MYVIMRC="~/.vimrc"
+
+alias check_ip_port_listening="netstat -antlp"
