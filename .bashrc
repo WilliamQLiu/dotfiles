@@ -250,6 +250,11 @@ docker_inspect_container_ip() {
     docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
+docker_events() {
+	docker events&
+}
+
+
 # build a docker image and tag with name
 docker_build_target() {
 	docker build -t $1 .
@@ -420,3 +425,4 @@ export MYVIMRC="~/.vimrc"
 export AIRFLOW_HOME="~/airflow"
 alias kill_airflow_server="cat $AIRFLOW_HOME/airflow-webserver.pid | xargs -9"
 
+alias check_ip_port_listening="netstat -antlp"
