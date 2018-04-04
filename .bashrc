@@ -319,6 +319,11 @@ docker_check_port() {
 	sudo lsof -i :$1 | grep LISTEN
 }
 
+# spin up a busybox container and ping the container named 'spark' 5 times
+docker_test_network() {
+    docker run --rm --net=my-net busybox ping -c 5 spark
+}
+
 
 ## Docker Compose
 
@@ -411,3 +416,7 @@ export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
 
 alias run_xset="xset r rate 200 60"
 export MYVIMRC="~/.vimrc"
+
+export AIRFLOW_HOME="~/airflow"
+alias kill_airflow_server="cat $AIRFLOW_HOME/airflow-webserver.pid | xargs -9"
+

@@ -153,6 +153,9 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
 " SPACES AND TABS
+set nocindent
+set nosmartindent
+set noautoindent
 set shiftwidth=4    " Indents will have a width of 4
 set softtabstop=4   " Sets the number of columns for a TAB
 set expandtab       " tabs are spaces
