@@ -152,16 +152,6 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
-" SPACES AND TABS
-set nocindent
-set nosmartindent
-set noautoindent
-set shiftwidth=4    " Indents will have a width of 4
-set softtabstop=4   " Sets the number of columns for a TAB
-set expandtab       " tabs are spaces
-set tabstop=4       " Number of visual spaces per tab
-set backspace=indent,eol,start " use backspace like a normal program
-
 " GENERAL SETTINGS
 set encoding=utf-8    " add UTF-8 support
 set clipboard=unnamed,unnamedplus
@@ -292,8 +282,11 @@ let g:ctrlp_custom_ignore = '__pycache__\|build\|dist\|*.egg-info\|*.pyc\|__pyca
 "let g:buffergator_suppress_keymaps = 1
 
 " Buffer prev/next
-nnoremap <C-x> :bnext<CR>
-nnoremap <C-z> :bprev<CR>
+"nnoremap <C-x> :bnext<CR>
+"nnoremap <C-z> :bprev<CR>
+nnoremap gn :bn<CR>
+nnoremap gp :bp<CR>
+nnoremap gd :bd<CR>
 
 " Better split switching
 map <C-j> <C-W>j
@@ -368,3 +361,14 @@ call neomake#configure#automake('w')
 
 " Neomake - Open the list automatically
 "let g:neomake_open_list=2
+
+" SPACES AND TABS
+set nocindent
+set nosmartindent
+set noautoindent
+set shiftwidth=4    " Indents will have a width of 4
+set softtabstop=4   " Sets the number of columns for a TAB
+set expandtab       " tabs are spaces
+set tabstop=4       " Number of visual spaces per tab
+set backspace=indent,eol,start " use backspace like a normal program
+

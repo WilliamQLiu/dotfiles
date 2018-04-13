@@ -232,6 +232,11 @@ printf "\e[?2004l"
 alias get_net_connections='lsof -i'  # show all open tcp/ip sockets
 alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connections
 
+# Show what is being used at port number, e.g. at port 8000 then will grep 8000
+inspect_port_number() {
+    sudo netstat -pna | grep $1
+}
+
 # MySQL - replace user and password
 #mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
 
