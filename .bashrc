@@ -431,3 +431,8 @@ export AIRFLOW_HOME="~/airflow"
 alias kill_airflow_server="cat $AIRFLOW_HOME/airflow-webserver.pid | xargs -9"
 
 alias check_ip_port_listening="netstat -antlp"
+
+# e.g. git checkout master -- myfile.py to get myfile.py from master branch
+git_checkout_file_on_branch() {
+    git checkout $1 -- $2
+}
