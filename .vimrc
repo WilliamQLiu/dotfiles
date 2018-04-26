@@ -266,6 +266,11 @@ set guicursor=
 "  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 "endif
 
+" Remove trailing whitespace for python files
+autocmd BufWritePre *.py %s/\s\+$//e
+" Always call Flake8 on save
+autocmd BufWritePost *.py call Flake8()
+
 " Plugin CtrlP options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
