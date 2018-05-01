@@ -71,6 +71,9 @@ Plugin 'mileszs/ack.vim'
 " Make splitting and moving on Neovim's Terminal easier (:term and :10Term for terminal w/ 10 height)
 Plugin 'mklabs/split-term.vim'
 
+" Strip whitespace
+Plugin 'ntpeters/vim-better-whitespace'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -376,4 +379,29 @@ set softtabstop=4   " Sets the number of columns for a TAB
 set expandtab       " tabs are spaces
 set tabstop=4       " Number of visual spaces per tab
 set backspace=indent,eol,start " use backspace like a normal program
+
+au FileType nginx setlocal noet ts=4 sw=4 sts=4
+
+" Go settings
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+" autocmd BufEnter *.go colorscheme nofrils-dark
+
+" scala settings
+autocmd BufNewFile,BufReadPost *.scala setl shiftwidth=2 expandtab
+
+" Markdown Settings
+autocmd BufNewFile,BufReadPost *.md setl ts=4 sw=4 sts=4 expandtab
+
+" lua settings
+autocmd BufNewFile,BufRead *.lua setlocal noet ts=4 sw=4 sts=4
+
+" Dockerfile settings
+autocmd FileType dockerfile set noexpandtab
+
+" shell/config/systemd settings
+autocmd FileType fstab,systemd set noexpandtab
+autocmd FileType gitconfig,sh,toml set noexpandtab
+
+" python indent
+autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=120 smarttab expandtab
 
