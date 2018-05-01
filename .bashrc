@@ -1,5 +1,5 @@
 # Will's BASH configurations
-# 
+#
 # -------------------------------------------------------------------
 # SECTIONS
 #
@@ -125,22 +125,22 @@ cd() { builtin cd "$@"; ls; }               # Always list directory contents upo
 
 #will return all results minus grep, useful for ps
 grepv () {
- grep -i $1 | grep -v 'grep'	
+ grep -i $1 | grep -v 'grep'
 }
 
 #runs ps aux with grep -i var | grep -v 'grep'
 fpid () {
- ps aux | grepv $1	
+ ps aux | grepv $1
 }
 
 #runs fpid, prints the second column of ps aux (the process pid) and kills all processes in the list with -9
 killprocs () {
- fpid $1 | awk '{print $2}' | xargs kill -9	
+ fpid $1 | awk '{print $2}' | xargs kill -9
 }
 
 #sends a sig HUP to all processes found
 killhup () {
- fpid $1 | awk '{print $2}' | xargs kill -HUP	
+ fpid $1 | awk '{print $2}' | xargs kill -HUP
 }
 
 alias make1mb='mkfile 1m ./1MB.dat'         # make1mb:      Creates a file of 1mb size (all zeros)
@@ -161,8 +161,8 @@ alias memory_used='free | grep Mem | awk '\''{print $3/$2 * 100.0}'\'
 alias memory_free='free | grep Mem | awk '\''{print $4/$2 * 100.0}'\'
 alias refresh="source ~/.bashrc"
 
-# Fix resize terminal funkiness 
-export PROMPT_COMMAND="resize &>/dev/null ; $PROMPT_COMMAND"
+# Fix resize terminal funkiness
+#export PROMPT_COMMAND="resize &>/dev/null ; $PROMPT_COMMAND"
 
 # git rebase with n being the number of commits you need to access; change 'pick' to 'squash'
 #git rebase -i HEAD~n
@@ -248,7 +248,7 @@ git_log_follow()
     git log --follow -p -- $1
 }
 
-## Docker 
+## Docker
 
 # inspect details on a container name (e.g. if running, what port, what IP Address)
 docker_inspect_container_ip() {
@@ -256,17 +256,17 @@ docker_inspect_container_ip() {
 }
 
 docker_events() {
-	docker events&
+    docker events&
 }
 
 
 # build a docker image and tag with name
 docker_build_target() {
-	docker build -t $1 .
+    docker build -t $1 .
 }
 
 docker_run_image() {
-	docker run $1
+    docker run $1
 }
 
 # inspect a docker image
@@ -282,6 +282,11 @@ docker_ssh_container() {
 # list all your images that you pulled
 docker_list_images() {
     docker images
+}
+
+# list all your volumes
+docker_list_volumes() {
+    docker volume ls
 }
 
 # remove dangling docker images
@@ -326,7 +331,7 @@ docker_stop_container() {
 
 # Check port number to see if used
 docker_check_port() {
-	sudo lsof -i :$1 | grep LISTEN
+    sudo lsof -i :$1 | grep LISTEN
 }
 
 # spin up a busybox container and ping the container named 'spark' 5 times
@@ -339,39 +344,39 @@ docker_test_network() {
 
 # bring up containers
 docker_compose_up() {
-	docker-compose up
+    docker-compose up
 }
 
 # bring up containers and rebuild when bringing up
 docker_compose_up_and_rebuild() {
-	docker-compose up --build
+    docker-compose up --build
 }
 
 # build w/ docker compose
 docker_compose_build() {
-	docker-compose build
+    docker-compose build
 }
 
 # bring down containers
 docker_compose_down() {
-	docker-compose down
+    docker-compose down
 }
 
 # list docker-compose containers/apps
 docker_compose_list_containers() {
-	docker-compose ps
+    docker-compose ps
 }
 
 # run a one time script from one container to another
 # e.g. docker exec -it my_web_app_1 ping -c 2 my_db_1
 docker_exec_between_containers() {
-	echo "To Do"
+    echo "To Do"
 }
 
 # docker run one time script on a container
 #e.g. docker-compose run my_web_app_1 python /web/hipflask/create_db.py
 docker_run_script() {
-	echo "To Do"
+    echo "To Do"
 }
 
 ## Docker Hub
@@ -396,9 +401,9 @@ alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files 
 
 if [ -e .secrets ]
 then
-	source .secrets
+    source .secrets
 else
-	:
+    :
 fi
 
 # Needed for neovim
