@@ -441,3 +441,7 @@ alias check_ip_port_listening="netstat -antlp"
 git_checkout_file_on_branch() {
     git checkout $1 -- $2
 }
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+

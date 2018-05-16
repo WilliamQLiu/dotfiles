@@ -4,7 +4,7 @@ set nocompatible " required
 filetype off " required
 set rtp+=~/.vim/bundle/Vundle.vim
 
-call vundle#begin() 
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 
 " Let Vundle manage Vundle, required
@@ -45,7 +45,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 
 " Add CtrlP Plugin to search files, buffers
-Plugin 'ctrlpvim/ctrlp.vim' 
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " Display list of buffers
 "Plugin 'jeetsukumaran/vim-buffergator'
@@ -403,5 +403,10 @@ autocmd FileType fstab,systemd set noexpandtab
 autocmd FileType gitconfig,sh,toml set noexpandtab
 
 " python indent
-autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=120 smarttab expandtab
+autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=120 expandtab
 
+" ========= vim-better-whitespace ==================
+
+" auto strip whitespace except for file with extention blacklisted
+let blacklist = ['markdown', 'md']
+autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
