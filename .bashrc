@@ -445,3 +445,8 @@ git_checkout_file_on_branch() {
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
+alias check_disk_usage_sort='du -hs * | sort -h'
+alias find_files_print='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -print'  # replace type f to d for directories
+alias find_files_delete='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -delete'
+alias search_for_files="ag --py 'mock' ."  # search for word like 'mock'
+
