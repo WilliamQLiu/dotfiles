@@ -237,8 +237,16 @@ inspect_port_number() {
     sudo netstat -pna | grep $1
 }
 
-# MySQL - replace user and password
+# MySQL - replace user and password on below queries
 #mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
+#mysqldump -t -u enterusername --password='mypassword' -h myhost myserver mytable --where="some_filter='A'"
+#  -t means do not make CREATE TABLE statements
+
+# MySQL select and dump into localhost's csv (notice it has tabular output (the "boxing" around columns); can choose to not have by using --batch or --raw
+# MySQL select from server and dump into localhost csv file (replace tabs with commas)
+#mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "SELECT x FROM mytable" | tr '\t' , > myQuery.csv
+# MySQL load file into MySQL Server using file from localhost
+#mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "LOAD DATA LOCAL INFILE '/home/will/myFile.csv' INTO mytable LINES TERMINATED BY '\n' IGNORE 1 LINES";
 
 alias make_ctags="ctags -R -f ./.git/tags ."
 
