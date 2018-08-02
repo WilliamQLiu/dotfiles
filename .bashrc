@@ -194,6 +194,8 @@ export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 alias gitlog='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %CBlue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --no-merges'
 alias check_data='csvtool readable data.csv | view -'
 alias gitlogf='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %Cblue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --numstat --no-merges'
+alias git_log_dog='git log --all --decorate --oneline --graph'
+alias git_log='git log --all --decorate --oneline --graph'
 
 
 # When displaying prompt to overwrite history, append instead
