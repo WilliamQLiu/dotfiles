@@ -155,7 +155,7 @@ mode "resize" {
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
-        
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -195,7 +195,7 @@ mouse_warping none
 
 # Disable tapping and scrolling for 1 second after each keypress (ignoring
 # modifier keys like Ctrl)
-exec --no-startup-id syndaemon -i .5 -d -K 
+exec --no-startup-id syndaemon -i .5 -d -K
 
 # Run screen script
 exec --no-startup-id /usr/local/bin/screen-setup.sh
@@ -225,3 +225,9 @@ bindsym $mod+minus scratchpad show
 bindsym $app+c exec code
 
 exec xset r rate 250 60
+
+exec ~/GitHub/dotfiles/bin/screen-lock.sh
+
+# Screen Shots
+bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
+bindsym Control+Print exec gnome-screenshot -
