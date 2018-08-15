@@ -16,8 +16,13 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'jnurmine/Zenburn'  " Color Scheme for terminal mode
 "Plugin 'altercation/vim-colors-solarized'  " Color Scheme for GUI mode
 
+" Try :Explore or :Ex instead of NerdTree
+
 " Tree File Explorer
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
+
+" Setup NERDtree Tabs"
+"Plugin 'jistr/vim-nerdtree-tabs'
 
 " Jedi autocompletion library for Python
 "Plugin 'davidhalter/jedi-vim'
@@ -25,14 +30,11 @@ Plugin 'scrooloose/nerdtree'
 " Check syntax, but runs a little slow
 "Plugin 'scrooloose/syntastic'
 
-" Faster than Syntastic, async
+" Faster than Syntastic, async to check syntax
 Plugin 'neomake/neomake'
 
 " PEP8 autochecking
 Plugin 'nvie/vim-flake8'
-
-" Setup NERDtree Tabs"
-" Plugin 'jistr/vim-nerdtree-tabs'
 
 " Lightweight status/tabline
 Plugin 'vim-airline/vim-airline'
@@ -42,10 +44,7 @@ Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'tpope/vim-fugitive'
 
 " Add gitgutter
-Plugin 'airblade/vim-gitgutter'
-
-" Add CtrlP Plugin to search files, buffers
-Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'airblade/vim-gitgutter'
 
 " Display list of buffers
 "Plugin 'jeetsukumaran/vim-buffergator'
@@ -54,7 +53,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'tpope/vim-surround'
 
 " Shortcuts for Ctags
-"Plugin 'szw/vim-tags'
+Plugin 'szw/vim-tags'
 
 " Nice JSON formatting
 "Plugin 'elzr/vim-json'
@@ -66,13 +65,16 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'jmcantrell/vim-virtualenv'
 
 " Needed for Ag Search
-Plugin 'mileszs/ack.vim'
+"Plugin 'mileszs/ack.vim'
 
 " Make splitting and moving on Neovim's Terminal easier (:term and :10Term for terminal w/ 10 height)
-Plugin 'mklabs/split-term.vim'
+"Plugin 'mklabs/split-term.vim'
 
 " Strip whitespace
 Plugin 'ntpeters/vim-better-whitespace'
+
+" Add CtrlP Plugin to search files, buffers
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -81,19 +83,21 @@ filetype plugin indent on    " required
 
 " VISUAL (COLORS, UI)
 " colorscheme atom-dark-256
-set guifont=Monaco:h10
+"set guifont=Monaco:h10
 set number  " display line numbers by default
 set noswapfile " Don't use swapfile
 set nobackup " Don't create annoying backup files
 set nowritebackup
-set cursorline "highlight current line
+"set cursorline "highlight current line  " runs slower
+set nocursorline  " Do not highlight line
+set nocursorcolumn  " Do not highlight column
 set wildmenu " visual autocomplete for command menu, e.g. `:e ~/.vim<tab>`
 set noshowmatch " do not highlight matching [{()}]
-"set colorcolumn=120 " Add a colored column here
+set colorcolumn=120 " Add a colored column here
 set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_termtrans=1
-"colorscheme solarized
+colorscheme darkblue
 set guioptions-=L
 set guioptions+=a
 set cmdheight=2 " command line height for messages
@@ -142,11 +146,11 @@ set synmaxcol=300
 " Shift and Direction to change tabs instead of with 'gt' and 'gT'
 "noremap <S-l> gt
 "noremap <S-h> gT
-nnoremap tn :tabnew<Space>
-nnoremap tk :tabnext<CR>
-nnoremap tj :tabprev<CR>
-nnoremap th :tabfirst<CR>
-nnoremap tl :tablast<CR>
+"nnoremap tn :tabnew<Space>
+"nnoremap tk :tabnext<CR>
+"nnoremap tj :tabprev<CR>
+"nnoremap th :tabfirst<CR>
+"nnoremap tl :tablast<CR>
 
 " WINDOWS
 " Control + Direction to change PANES instead of Control + W + Direction
@@ -162,14 +166,14 @@ set autoread          " automatically reloads vim
 set history=1000      " Store a lot of history
 set ignorecase        " case insensitive
 set smartcase         " use case if any caps used
-"set nowrap            " do not wrap lines
-set wrap              " wrap lines
+set nowrap            " do not wrap lines
+"set wrap              " wrap lines
 set textwidth=79
 set formatoptions=qrn1
 set ruler             " show a ruler
 set showcmd           " show commands as you type out
 set showmode          " show current mode.
-set autoindent        " autoindent
+"set autoindent        " autoindent
 set autowrite         " automatically save before :next, :make, etc
 set ttyfast           " scroll fast
 set lazyredraw        " wait to redraw
@@ -195,13 +199,13 @@ nnoremap <space> za
 "autocmd VimEnter * NERDTree " NERDTree automatically opens when vim starts up
 "autocmd VimEnter * wincmd p " Refocus window (go to previously accessed window) instead of NERDTree
 " Open NERDTree with Control + N
-map <C-n> :NERDTreeToggle<CR>
-" hide .pyc files
-if !exists("g:NERDTreeIgnore")
-    let g:NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
-endif
-
-let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
+""map <C-n> :NERDTreeToggle<CR>
+""" hide .pyc files
+""if !exists("g:NERDTreeIgnore")
+""    let g:NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
+""endif
+""
+""let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
 
 " Enable syntax highlight for JSDocs
 "let g:javascript_plugin_jsdoc = 1
@@ -262,17 +266,10 @@ endif
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-set guicursor=
-
 " Remeber last known cursor position
 "if has("autocmd")
 "  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 "endif
-
-" Remove trailing whitespace for python files
-autocmd BufWritePre *.py %s/\s\+$//e
-" Always call Flake8 on save
-autocmd BufWritePost *.py call Flake8()
 
 " Plugin CtrlP options
 let g:ctrlp_map = '<c-p>'
@@ -292,9 +289,9 @@ let g:ctrlp_custom_ignore = '__pycache__\|build\|dist\|*.egg-info\|*.pyc\|__pyca
 " Buffer prev/next
 "nnoremap <C-x> :bnext<CR>
 "nnoremap <C-z> :bprev<CR>
-nnoremap gn :bn<CR>
-nnoremap gp :bp<CR>
-nnoremap gd :bd<CR>
+"nnoremap gn :bn<CR>
+"nnoremap gp :bp<CR>
+"nnoremap gd :bd<CR>
 
 " Better split switching
 map <C-j> <C-W>j
@@ -347,7 +344,8 @@ set t_BE=
 set paste
 set pastetoggle=<F10>
 
-set tags=tags;/
+set tags=./tags,tags;
+set autochdir
 
 set ff=unix
 
@@ -370,15 +368,33 @@ call neomake#configure#automake('w')
 " Neomake - Open the list automatically
 "let g:neomake_open_list=2
 
+" Remove trailing whitespace for python files
+autocmd BufWritePre *.py %s/\s\+$//e
+" Always call Flake8 on save
+"autocmd BufWritePost *.py call Flake8()
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|pycache|__pycache__)$',
+  \ 'file': '\v\.(exe|so|dll|pyc)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+let g:flake8_quickfix_height=7
+let g:flake8_show_in_gutter=1 " show
+let g:flake8_show_in_file=1 " show
+
+"set guicursor=
+
 " SPACES AND TABS
-set nocindent
-set nosmartindent
-set noautoindent
-set shiftwidth=4    " Indents will have a width of 4
-set softtabstop=4   " Sets the number of columns for a TAB
+set backspace=indent,eol,start " use backspace like a normal program
 set expandtab       " tabs are spaces
 set tabstop=4       " Number of visual spaces per tab
-set backspace=indent,eol,start " use backspace like a normal program
+set nosmartindent
+set noautoindent
+set nosmarttab
+set shiftwidth=4    " Indents will have a width of 4
+set softtabstop=4   " Sets the number of columns for a TAB
+set sw=4
 
 au FileType nginx setlocal noet ts=4 sw=4 sts=4
 
@@ -410,3 +426,9 @@ autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 te
 " auto strip whitespace except for file with extention blacklisted
 let blacklist = ['markdown', 'md']
 autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 2
+let g:netrw_winsize = 25
+
