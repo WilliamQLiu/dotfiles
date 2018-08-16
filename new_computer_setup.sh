@@ -14,7 +14,12 @@ apt-get install git \
     htop \
     curl \
     scrot \
-    texmaker
+    texmaker \
+	build-essential \
+	cmake \
+	python3-dev \
+	python-dev \
+	libgnome2-bin
 
 # install i3
 /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2018.01.30_all.deb keyring.deb SHA256:baa43dbbd7232ea2b5444cae238d53bebb9d34601cc000e82f11111b1889078a
@@ -54,8 +59,12 @@ cp -r ~/GitHub/dotfiles/.config/i3/config ~/.i3/config
 cp ~/GitHub/dotfiles/etc/default/grub /etc/default/grub
 update-grab
 
+# Install Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+
+# Install vim bundle YouCompleteMe
+cd ~/.vim/bundle/YouCompleteMe && ./install.py --all
 
 mkdir -p /etc/X11/xorg.conf.d/
 cp ~/GitHub/dotfiles/etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
