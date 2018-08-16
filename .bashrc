@@ -221,9 +221,9 @@ alias "paste=xclip -o"
 alias cd_go_github="cd /home/will/go/src/github.com/williamqliu"
 
 
-set show-mode-in-prompt on
-bind 'set vi-ins-mode-string \1\e[0m\2::: \1\e[7m\2'
-bind 'set vi-cmd-mode-string \1\e>>> [0m\2'
+#set show-mode-in-prompt on
+#bind 'set vi-ins-mode-string \1\e[0m\2::: \1\e[7m\2'
+#bind 'set vi-cmd-mode-string \1\e>>> [0m\2'
 
 set -o vi
 

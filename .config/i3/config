@@ -74,7 +74,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split c
+bindsym $mod+c split c
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -225,8 +225,6 @@ bindsym $mod+minus scratchpad show
 bindsym $app+c exec code
 
 exec xset r rate 250 60
-
-exec ~/GitHub/dotfiles/bin/screen-lock.sh
 
 # Screen Shots
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
