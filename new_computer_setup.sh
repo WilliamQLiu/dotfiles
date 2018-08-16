@@ -48,8 +48,8 @@ cp ~/GitHub/dotfiles/.inputrc ~
 cp ~/GitHub/dotfiles/.ssh/config ~/.ssh/
 cp ~/GitHub/dotfiles/etc/bash_completion.d ~
 
-wget https://github.com/git/git/blob/master/contrib/completion/git-completion.bash ~
-wget https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh ~
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash ~
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh ~
 
 # Add configs
 mkdir -p ~/.config
