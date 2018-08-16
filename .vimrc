@@ -19,10 +19,10 @@ Plugin 'Valloric/YouCompleteMe'
 " Try :Explore or :Ex instead of NerdTree
 
 " Tree File Explorer
-"Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 
 " Setup NERDtree Tabs"
-"Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 " Jedi autocompletion library for Python
 "Plugin 'davidhalter/jedi-vim'
