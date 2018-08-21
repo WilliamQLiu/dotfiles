@@ -31,7 +31,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'scrooloose/syntastic'
 
 " Faster than Syntastic, async to check syntax
-Plugin 'neomake/neomake'
+"Plugin 'neomake/neomake'
 
 " PEP8 autochecking
 Plugin 'nvie/vim-flake8'
@@ -71,7 +71,7 @@ Plugin 'szw/vim-tags'
 "Plugin 'mklabs/split-term.vim'
 
 " Strip whitespace
-Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 
 " Add CtrlP Plugin to search files, buffers
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -199,13 +199,13 @@ nnoremap <space> za
 "autocmd VimEnter * NERDTree " NERDTree automatically opens when vim starts up
 "autocmd VimEnter * wincmd p " Refocus window (go to previously accessed window) instead of NERDTree
 " Open NERDTree with Control + N
-""map <C-n> :NERDTreeToggle<CR>
-""" hide .pyc files
-""if !exists("g:NERDTreeIgnore")
-""    let g:NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
-""endif
-""
-""let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
+map <C-n> :NERDTreeToggle<CR>
+"hide .pyc files
+if !exists("g:NERDTreeIgnore")
+    let g:NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
+endif
+
+let NERDTreeIgnore = ['\.pyc$', '\~$', '\.swp$']  "ignore files in NERDTree
 
 " Enable syntax highlight for JSDocs
 "let g:javascript_plugin_jsdoc = 1
@@ -216,7 +216,7 @@ set statusline=
 "set statusline+=%F  " file name
 set statusline+=%t%m  " show current file and modified flag [+]
 set statusline+=%#warningmsg#  " show warning messages
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 "set statusline+=%l:%c(%p%%)  " show current line, column and percentage through file
 let g:syntastic_always_populate_loc_list = 1
@@ -363,13 +363,13 @@ if executable('ag')
 endif
 
 " Neomake - When writing a buffer.
-call neomake#configure#automake('w')
+"call neomake#configure#automake('w')
 
 " Neomake - Open the list automatically
 "let g:neomake_open_list=2
 
 " Remove trailing whitespace for python files
-autocmd BufWritePre *.py %s/\s\+$//e
+"autocmd BufWritePre *.py %s/\s\+$//e
 " Always call Flake8 on save
 "autocmd BufWritePost *.py call Flake8()
 
@@ -424,8 +424,18 @@ autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4 te
 " ========= vim-better-whitespace ==================
 
 " auto strip whitespace except for file with extention blacklisted
-let blacklist = ['markdown', 'md']
-autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+"let blacklist = ['markdown', 'md']
+"autocmd BufWritePre * if index(blacklist, &ft) < 0 | StripWhitespace
+
+" :call TrimWhitespace()
+fun! TrimWhitespace()
+    let l:save = winsaveview()  " save the current 'view'
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+" Create command :TrimWhitespace (instead of :call TrimWhitespace())
+command! TrimWhitespace call TrimWhitespace()
+
 
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
