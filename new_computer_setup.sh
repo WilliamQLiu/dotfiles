@@ -21,7 +21,8 @@ apt-get install git \
 	libgnome2-bin \
 	awscli \
 	docker.io \
-	docker-compose
+	docker-compose \
+	redis-tools
 
 # install i3
 /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2018.01.30_all.deb keyring.deb SHA256:baa43dbbd7232ea2b5444cae238d53bebb9d34601cc000e82f11111b1889078a
