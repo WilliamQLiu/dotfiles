@@ -289,9 +289,9 @@ let g:ctrlp_custom_ignore = '__pycache__\|build\|dist\|*.egg-info\|*.pyc\|__pyca
 " Buffer prev/next
 "nnoremap <C-x> :bnext<CR>
 "nnoremap <C-z> :bprev<CR>
-"nnoremap gn :bn<CR>
-"nnoremap gp :bp<CR>
-"nnoremap gd :bd<CR>
+nnoremap gn :bn<CR>
+nnoremap gp :bp<CR>
+nnoremap gd :bd<CR>
 
 " Better split switching
 map <C-j> <C-W>j
