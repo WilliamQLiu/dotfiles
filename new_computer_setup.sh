@@ -24,6 +24,7 @@ apt-get install git \
 	docker-compose \
 	redis-tools \
 	node-js \
+	jq \
 	arandr
 
 # install i3
