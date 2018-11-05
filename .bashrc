@@ -461,3 +461,6 @@ alias find_files_delete='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sq
 alias search_for_files="ag --py 'mock' ."  # search for word like 'mock'
 
 #killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill }
+
+alias find_in_parquet='find . -name "*parquet" | xargs -I {} sh -c "echo {}; parquet --format json {} | jq"
+
