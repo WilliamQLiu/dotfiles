@@ -224,8 +224,9 @@ bindsym $mod+minus scratchpad show
 # open visual studio code
 bindsym $app+c exec code
 
-exec xset r rate 250 60
-
 # Screen Shots
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
-bindsym Control+Print exec gnome-screenshot -
+bindsym Control+Print exec gnome-screenshot -i
+
+exec xset r rate 250 60
+
