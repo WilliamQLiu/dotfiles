@@ -370,7 +370,7 @@ endif
 "let g:neomake_open_list=2
 
 " Remove trailing whitespace for python files
-"autocmd BufWritePre *.py %s/\s\+$//e
+autocmd BufWritePre *.py %s/\s\+$//e
 " Always call Flake8 on save
 "autocmd BufWritePost *.py call Flake8()
 
