@@ -349,6 +349,11 @@ docker_test_network() {
     docker run --rm --net=my-net busybox ping -c 5 spark
 }
 
+# Inspect mounts on specific containerid
+docker_inspect_mounts() {
+	docker inspect -f '{{ .Mounts }}' $1
+}
+
 
 ## Docker Compose
 
