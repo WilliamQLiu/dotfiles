@@ -9,7 +9,7 @@ smart_completion = True
 # this is set to True, then the end of the statements must have a semi-colon.
 # If this is set to False then sql statements can't be split into multiple
 # lines. End of line (return) is considered as the end of the statement.
-multi_line = False 
+multi_line = True 
 
 # Destructive warning mode will alert you before executing a sql statement
 # that may cause harm to the database such as "drop table", "drop database"
@@ -94,3 +94,39 @@ Token.Toolbar.Arg.Text = 'nobold'
 
 # Do not use a pager
 skip-pager=on
+
+show_user_access = show grants for dbadmin
+show_character_encoding_database = "show variables like 'character_set_database'"
+simple_join = '''update some_database.some_table a
+join some_database.some_other_table b on a.id = b.id
+set a.some_status=0'''
+communty_by_loc_city = '''
+select count(*), t1.loc_city from idx.mlslv4_master t1 join enterprise.community t2 where t1.loc_city = t2.name and t2.owner_id=44 group by t1.loc_city'''
+describe_table = '''select COLUMN_NAME as 'Field',
+       COLUMN_TYPE    as 'Type',
+       IS_NULLABLE    as 'Null',
+       COLUMN_KEY     as 'Key',
+       COLUMN_DEFAULT as 'Default',
+       EXTRA          as 'Extra'
+    from INFORMATION_SCHEMA.COLUMNS
+        where TABLE_NAME   = 'my_table' and
+              TABLE_SCHEMA = 'my_database''''
+insert_with_select = "insert into my_db.my_table (field1, field2, field3, field4) (select 10, field2, field3, 20 from my_db.another_table)"
+simple_insert = "inserto into my_db.my_table (field1, field2, field3) values (1, 2, 3)"
+SHOW = "FULL TABLES IN database_name WHERE TABLE_TYPE LIKE 'VIEW'"
+show_full_process_list = show full processlist
+set_bit_after_time = "UPDATE my_table SET newly_reduced_bit = 0 where newly_reduced_bit = 1 and date_price_changed < DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)"
+show_innodb_status = SHOW ENGINE INNODB STATUS
+show_all_views = "show full tables in database_name where table_type like 'VIEW'"
+show_primary_keys = "SHOW KEYS FROM table WHERE Key_name = 'PRIMARY'"
+show_replication_status = SHOW SLAVE STATUS
+show_indexes = show index from my_db.my_table
+drop_index = alter table my_db.my_table drop index my_index
+create_unique_index = create unique index my_index on my_db.my_table (my_column)
+insert_ignore_table = insert ignore my_second_table (select * from my_first_table)
+rename_table = rename table my_old_table_name to my_new_table_name
+get_table_sizes = '''select TABLE_NAME as `table`, round((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024) AS `Size (MB)`
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = 'idx'
+ORDER BY (DATA_LENGTH + INDEX_LENGTH)
+DESC'''
