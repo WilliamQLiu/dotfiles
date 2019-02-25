@@ -268,7 +268,7 @@ alias search_for_files="ag --py 'mock' ."  # search for word like 'mock'
 #alias find_in_parquet='find . -name "*parquet" | xargs -I {} sh -c "echo {}; parquet --format json {} | jq"
 
 # -------------------------------------------------------------------
-# 10. Database
+# 10. Database (MySQL)
 # -------------------------------------------------------------------
 
 mysql_get_killed_queries() {
@@ -291,12 +291,22 @@ mysql_get_slow_slave_queries() {
 #mysqldump -t -u enterusername --password='mypassword' -h myhost myserver mytable --where="some_filter='A'"
 #  -t means do not make CREATE TABLE statements
 
+# MySQL Dump (into an outfile ON THE SERVER (not localhost)
+#mysql -u test -pfoo --database test -h testdb201.name.host.com --port 3306 -ss -e "SELECT 'a','b','c' UNION SELECT col1, col2, col3 INTO OUTFILE '/tmp/mytest.csv' FIELDS TERMINATED BY ','  FROM tst_p000 limit 10"
+# MySQL Dump (into an outfile on localserver)
+#mysql -u test -pfoo --database test -h testdb201.name.host.com --port 3306 -ss -e "SELECT 'a','b','c' UNION SELECT col1, col2, col3 " | sed 's/\t/","/g;s/^/"/;s/$/"/;s/\n//g' > myDump.csv
+
 # MySQL select and dump into localhost's csv (notice it has tabular output (the "boxing" around columns); can choose to not have by using --batch or --raw
 # MySQL select from server and dump into localhost csv file (replace tabs with commas)
 #mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "SELECT x FROM mytable" | tr '\t' , > myQuery.csv
 
 # MySQL load file into MySQL Server using file from localhost
 #mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "LOAD DATA LOCAL INFILE '/home/will/myFile.csv' INTO mytable LINES TERMINATED BY '\n' IGNORE 1 LINES";
+
+# -A to not have auto-rehash
+#alias localhost="mysql -u will --password="mypassword" -h 127.0.0.1 -A"
+
+# Use mycli instead of mysql cli: https://github.com/dbcli/mycli
 
 # -------------------------------------------------------------------
 # 11. Docker, Docker Compose, Docker Hub
@@ -492,6 +502,26 @@ alias reattach_screen='screen -r '  # then add id
 
 ## Csvtool
 alias check_data='csvtool readable data.csv | view -'
+
+## Vim
+# Search and Replace in vim
+#/[,]   # searches for comma
+#:s//&\r/g
+#s// means an empty find pattern, use last search
+#& means insert the search hit (for this its a comma)
+# in the replacement, \r inserts a new line
+
+# Remove last char in each line from previous search
+#:%s/.\{1}$//
+
+# Add comma to end of each line
+# :%s/$/\,/g
+
+# Select text in visual mode, then:
+# sort u
+
+# Trim trailing whitespace
+#:%s/\s\+$//e
 
 ## Google Cloud SDK
 
