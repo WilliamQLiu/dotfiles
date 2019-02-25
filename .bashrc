@@ -12,6 +12,10 @@
 # 7. System Operations and Information
 # 8. Web Dev
 # 9. Secrets (stored in .secrets)
+# 10. Database
+# 11. Docker, Docker Compose, Docker Hub
+# 12. Git
+# 13. Applications
 # -------------------------------------------------------------------
 
 
@@ -21,15 +25,6 @@
 
 # Change Prompt
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
-
-# Git
-#source ~/.git-prompt.sh  # see repository status in shell (e.g. on master branch)
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-alias git_branch_sort_latest='git branch --sort=committerdate'  # sorts ASC, use -committerdate for DESC
-
 # Add to Paths
 export PATH="$PATH:/usr/bin/"
 export PATH="$PATH:/usr/local/bin/"
@@ -60,8 +55,8 @@ export LS_COLORS
 
 
 # Virtualenv wrapper
-VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
-source /usr/local/bin/virtualenvwrapper.sh
+#VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
+#source /usr/local/bin/virtualenvwrapper.sh
 
 # -------------------------------------------------------------------
 # 2. Terminal Commands
@@ -155,49 +150,16 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name end
 # SCP Example to copy from server to local
 #scp serveruser@exampleserver.com:/home/will/logs/* .
 
-alias count_files="ls -l | wc -l"
+# SCP from local to server
+#scp myfile myuser@myserver:/tmp/mydir/
 
+alias count_files="ls -l | wc -l"
 alias memory_used='free | grep Mem | awk '\''{print $3/$2 * 100.0}'\'
 alias memory_free='free | grep Mem | awk '\''{print $4/$2 * 100.0}'\'
 alias refresh="source ~/.bashrc"
 
 # Fix resize terminal funkiness
 #export PROMPT_COMMAND="resize &>/dev/null ; $PROMPT_COMMAND"
-
-# git rebase with n being the number of commits you need to access; change 'pick' to 'squash'
-#git rebase -i HEAD~n
-
-# Start Rabbitmq-Server
-alias rabbitmq_start="service rabbitmq-server start"
-alias rabbitmq_stop="service rabbitmq-server stop"
-alias rabbitmq_status="rabbitmqctl status"
-
-alias show_screen='screen -ls'
-# Ctrl + a + c to create a new window
-# Ctrl + a + d to detach from a window
-# Ctrl + a + :sessionname to rename the session
-alias reattach_screen='screen -r '  # then add id
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then source '/opt/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then source '/opt/google-cloud-sdk/completion.bash.inc'; fi
-
-# AWS keys are in ~/.aws/
-
-docker-ip() {
-  docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
-}
-export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-
-alias gitlog='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %CBlue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --no-merges'
-alias check_data='csvtool readable data.csv | view -'
-alias gitlogf='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %Cblue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --numstat --no-merges'
-alias git_log_dog='git log --all --decorate --oneline --graph'
-alias git_log='git log --all --decorate --oneline --graph'
-
-
 # When displaying prompt to overwrite history, append instead
 PROMPT_COMMAND='history -a'
 
@@ -220,7 +182,6 @@ alias "paste=xclip -o"
 # Go To Go GitHub
 alias cd_go_github="cd /home/will/go/src/github.com/williamqliu"
 
-
 #set show-mode-in-prompt on
 #bind 'set vi-ins-mode-string \1\e[0m\2::: \1\e[7m\2'
 #bind 'set vi-cmd-mode-string \1\e>>> [0m\2'
@@ -238,6 +199,92 @@ alias get_open_ports='sudo lsof -i | grep LIST'  # show all listening connection
 inspect_port_number() {
     sudo netstat -pna | grep $1
 }
+alias make_ctags="ctags -R -f ./.git/tags ."
+
+# Example of showing entire history for a specific file
+git_log_follow()
+{
+    git log --follow -p -- $1
+}
+alias netstat_see_network_connections="netstat -tulpn"
+alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files lying around
+
+if [ -e .secrets ]
+then
+    source .secrets
+else
+    :
+fi
+
+# Needed for neovim
+export VTE_VERSION="100"
+
+# LaTeX editor
+alias te="texmaker"
+
+# Make key repeat much faster
+xset r rate 200 60
+
+# Setup configs for Hadoop and Spark
+export CLASSPATH='$CLASSPATH:/usr/share/java/mysql-connector-java.jar'
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export HADOOP_HOME=/usr/local/hadoop-3.0.0/
+export PATH=$PATH:$HADOOP_HOME/bin
+export PATH=$PATH:$HADOOP_HOME/sbin
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+#export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop/
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
+
+alias run_xset="xset r rate 200 60"
+export MYVIMRC="~/.vimrc"
+
+export AIRFLOW_HOME="~/airflow"
+alias kill_airflow_server="cat $AIRFLOW_HOME/airflow-webserver.pid | xargs -9"
+
+alias check_ip_port_listening="netstat -antlp"
+
+# e.g. git checkout master -- myfile.py to get myfile.py from master branch
+git_checkout_file_on_branch() {
+    git checkout $1 -- $2
+}
+# git checkout <filename>
+# git checkout myhash -- file1/to/restore file2/to/restore
+# git checkout myash~1 -- file1/to/restore file2/to/restore
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+alias check_disk_usage_sort='du -hs * | sort -h'
+alias find_files_print='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -print'  # replace type f to d for directories
+alias find_files_delete='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -delete'
+alias search_for_files="ag --py 'mock' ."  # search for word like 'mock'
+
+#killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill }
+
+#alias find_in_parquet='find . -name "*parquet" | xargs -I {} sh -c "echo {}; parquet --format json {} | jq"
+
+# -------------------------------------------------------------------
+# 10. Database
+# -------------------------------------------------------------------
+
+mysql_get_killed_queries() {
+    queries=$(masterdb -e "SELECT id, user, time, command, state, info FROM information_schema.processlist WHERE command = 'Killed' ORDER BY time DESC, id \G");
+    echo "$queries";
+}
+
+mysql_get_slow_queries() {
+    queries=$(db3 -e "SELECT id, user, time, state, info FROM information_schema.processlist WHERE command != 'Sleep' AND time >= 10 AND user not in ('vwjanitor','system user') ORDER BY time DESC, id \G");
+    echo "$queries";
+}
+
+mysql_get_slow_slave_queries() {
+    queries=$(slavedb -e "SELECT id, user, time, state, info FROM information_schema.processlist WHERE command != 'Sleep' AND time >= 10 AND user not in ('vwjanitor','system user') ORDER BY time DESC, id \G");
+    echo "$queries";
+}
 
 # MySQL - replace user and password on below queries
 #mysql -h 127.0.0.1 -uenteruser -enterpassword' -v < /path/to/myscript.sql
@@ -247,18 +294,15 @@ inspect_port_number() {
 # MySQL select and dump into localhost's csv (notice it has tabular output (the "boxing" around columns); can choose to not have by using --batch or --raw
 # MySQL select from server and dump into localhost csv file (replace tabs with commas)
 #mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "SELECT x FROM mytable" | tr '\t' , > myQuery.csv
+
 # MySQL load file into MySQL Server using file from localhost
 #mysql -u enterusername --password='mypassword' -h myhost myserver mytable -e "LOAD DATA LOCAL INFILE '/home/will/myFile.csv' INTO mytable LINES TERMINATED BY '\n' IGNORE 1 LINES";
 
-alias make_ctags="ctags -R -f ./.git/tags ."
+# -------------------------------------------------------------------
+# 11. Docker, Docker Compose, Docker Hub
+# -------------------------------------------------------------------
 
-# Example of showing entire history for a specific file
-git_log_follow()
-{
-    git log --follow -p -- $1
-}
-
-## Docker
+### Docker
 
 # inspect details on a container name (e.g. if running, what port, what IP Address)
 docker_inspect_container_ip() {
@@ -268,7 +312,6 @@ docker_inspect_container_ip() {
 docker_events() {
     docker events&
 }
-
 
 # build a docker image and tag with name
 docker_build_target() {
@@ -355,7 +398,7 @@ docker_inspect_mounts() {
 }
 
 
-## Docker Compose
+### Docker Compose
 
 # bring up containers
 docker_compose_up() {
@@ -394,7 +437,7 @@ docker_run_script() {
     echo "To Do"
 }
 
-## Docker Hub
+### Docker Hub
 
 # login to dockerhub
 dockerhub_login() {
@@ -411,64 +454,55 @@ dockerhub_run_image() {
     docker run $1
 }
 
-alias netstat_see_network_connections="netstat -tulpn"
-alias remove_pyc_files="find . -name \*.pyc -delete"  # delete pesky .pyc files lying around
 
-if [ -e .secrets ]
-then
-    source .secrets
-else
-    :
-fi
+# -------------------------------------------------------------------
+# 12. Git
+# -------------------------------------------------------------------
 
-# Needed for neovim
-export VTE_VERSION="100"
-
-# LaTeX editor
-alias te="texmaker"
-
-# Make key repeat much faster
-xset r rate 200 60
-
-# Setup configs for Hadoop and Spark
-export CLASSPATH='$CLASSPATH:/usr/share/java/mysql-connector-java.jar'
-export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
-export HADOOP_HOME=/usr/local/hadoop-3.0.0/
-export PATH=$PATH:$HADOOP_HOME/bin
-export PATH=$PATH:$HADOOP_HOME/sbin
-export HADOOP_MAPRED_HOME=$HADOOP_HOME
-export HADOOP_COMMON_HOME=$HADOOP_HOME
-export HADOOP_HDFS_HOME=$HADOOP_HOME
-export YARN_HOME=$HADOOP_HOME
-#export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop/
-export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop/
-export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native/
-
-alias run_xset="xset r rate 200 60"
-export MYVIMRC="~/.vimrc"
-
-export AIRFLOW_HOME="~/airflow"
-alias kill_airflow_server="cat $AIRFLOW_HOME/airflow-webserver.pid | xargs -9"
-
-alias check_ip_port_listening="netstat -antlp"
-
-# e.g. git checkout master -- myfile.py to get myfile.py from master branch
-git_checkout_file_on_branch() {
-    git checkout $1 -- $2
+#source ~/.git-prompt.sh  # see repository status in shell (e.g. on master branch)
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-# git checkout <filename>
-# git checkout myhash -- file1/to/restore file2/to/restore
-# git checkout myash~1 -- file1/to/restore file2/to/restore
 
-# Stopwatch
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+alias git_branch_sort_latest='git branch --sort=committerdate'  # sorts ASC, use -committerdate for DESC
 
-alias check_disk_usage_sort='du -hs * | sort -h'
-alias find_files_print='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -print'  # replace type f to d for directories
-alias find_files_delete='find /tmp -maxdepth 1 -mtime -1 -type f -name "DBG_A_sql*" -delete'
-alias search_for_files="ag --py 'mock' ."  # search for word like 'mock'
+# git rebase with n being the number of commits you need to access; change 'pick' to 'squash', leave first line to pick
+#git rebase -i HEAD~n
 
-#killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill }
+alias gitlog='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %CBlue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --no-merges'
+alias gitlogf='git log --pretty=format:"%Cgreen%<(12)%ar%Creset %Cblue%<(10,trunc)%an %Cred{%h <- %<(7,trunc)%p}%Creset %<(60,trunc)%s" --numstat --no-merges'
+alias git_log_dog='git log --all --decorate --oneline --graph'
+alias git_log='git log --all --decorate --oneline --graph'
 
-alias find_in_parquet='find . -name "*parquet" | xargs -I {} sh -c "echo {}; parquet --format json {} | jq"
+# -------------------------------------------------------------------
+# 13. Applications
+# -------------------------------------------------------------------
+
+## RabbitMQ
+alias rabbitmq_start="service rabbitmq-server start"
+alias rabbitmq_stop="service rabbitmq-server stop"
+alias rabbitmq_status="rabbitmqctl status"
+
+## Screen
+alias show_screen='screen -ls'
+# Ctrl + a + c to create a new window
+# Ctrl + a + d to detach from a window
+# Ctrl + a + :sessionname to rename the session
+alias reattach_screen='screen -r '  # then add id
+
+## Csvtool
+alias check_data='csvtool readable data.csv | view -'
+
+## Google Cloud SDK
+
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/opt/google-cloud-sdk/path.bash.inc' ]; then source '/opt/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/opt/google-cloud-sdk/completion.bash.inc' ]; then source '/opt/google-cloud-sdk/completion.bash.inc'; fi
+
+## AWS
+# AWS keys are in ~/.aws/
 
